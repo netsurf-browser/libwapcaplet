@@ -43,7 +43,7 @@ END_TEST
 START_TEST (test_lwc_intern_substring_aborts2)
 {
         lwc_string *str;
-        fail_unless(lwc_intern_string("Jam", 3, &str) == lwc_error_ok,
+        ck_assert_msg(lwc_intern_string("Jam", 3, &str) == lwc_error_ok,
                     "unable to intern 'Jam'");
         
         lwc_intern_substring(str, 88, 77, null_lwc_p);
@@ -59,7 +59,7 @@ END_TEST
 START_TEST (test_lwc_string_tolower_aborts2)
 {
         lwc_string *str;
-        fail_unless(lwc_intern_string("Badger", 6, &str) == lwc_error_ok,
+        ck_assert_msg(lwc_intern_string("Badger", 6, &str) == lwc_error_ok,
                     "unable to intern 'Badger'");
 
         lwc_string_tolower(str, null_lwc_p);
