@@ -156,13 +156,15 @@ lwc_string_ref(lwc_string *str)
  *       freed. (Ref count of 1 where string is its own insensitve match
  *       will also result in the string being freed.)
  */
-#define lwc_string_unref(str) {						\
-		lwc_string *__lwc_s = (str);				\
-		assert(__lwc_s != NULL);				\
-		__lwc_s->refcnt--;						\
-		if ((__lwc_s->refcnt == 0) ||					\
-		    ((__lwc_s->refcnt == 1) && (__lwc_s->insensitive == __lwc_s)))	\
-			lwc_string_destroy(__lwc_s);				\
+#define lwc_string_unref(str) {                                  \
+		lwc_string *__lwc_s = (str);                     \
+		if (__lwc_s != NULL) {                           \
+			__lwc_s->refcnt--;                       \
+			if ((__lwc_s->refcnt == 0) ||            \
+			    ((__lwc_s->refcnt == 1) &&           \
+			     (__lwc_s->insensitive == __lwc_s))) \
+				lwc_string_destroy(__lwc_s);     \
+		}                                                \
 	}
 	
 /**
