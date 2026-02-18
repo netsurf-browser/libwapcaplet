@@ -72,7 +72,8 @@ START_TEST (test_lwc_string_ref_aborts)
 }
 END_TEST
 
-START_TEST (test_lwc_string_unref_aborts)
+/* test unreffing the null string does *not* abort */
+START_TEST (test_lwc_string_unref_null)
 {
         lwc_string_unref(null_lwc);
 }
@@ -430,9 +431,6 @@ lwc_basic_suite(SRunner *sr)
                                     test_lwc_string_ref_aborts,
                                     SIGABRT);
         tcase_add_test_raise_signal(tc_basic,
-                                    test_lwc_string_unref_aborts,
-                                    SIGABRT);
-        tcase_add_test_raise_signal(tc_basic,
                                     test_lwc_string_data_aborts,
                                     SIGABRT);
         tcase_add_test_raise_signal(tc_basic,
@@ -442,6 +440,8 @@ lwc_basic_suite(SRunner *sr)
                                     test_lwc_string_hash_value_aborts,
                                     SIGABRT);
 #endif
+
+        tcase_add_test(tc_basic, test_lwc_string_unref_null);
         
         suite_add_tcase(s, tc_basic);
         
