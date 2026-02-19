@@ -16,9 +16,10 @@
 #define UNUSED(x) (void)(x)
 #endif
 
+lwc_string *null_lwc = NULL;
+
 #ifndef NDEBUG
 
-lwc_string *null_lwc = NULL;
 lwc_string **null_lwc_p = NULL;
 
 /* All the basic assert() tests */
@@ -72,13 +73,6 @@ START_TEST (test_lwc_string_ref_aborts)
 }
 END_TEST
 
-/* test unreffing the null string does *not* abort */
-START_TEST (test_lwc_string_unref_null)
-{
-        lwc_string_unref(null_lwc);
-}
-END_TEST
-
 START_TEST (test_lwc_string_data_aborts)
 {
         (void) lwc_string_data(null_lwc);
@@ -98,6 +92,13 @@ START_TEST (test_lwc_string_hash_value_aborts)
 END_TEST
 
 #endif
+
+/* test unreffing the null string does *not* abort */
+START_TEST (test_lwc_string_unref_null)
+{
+        lwc_string_unref(null_lwc);
+}
+END_TEST
 
 /**** The next set of tests need a fixture set ****/
 
